@@ -109,7 +109,7 @@ function loadTweets(tweetsElement){
     xhr.open(method,url)
     xhr.onload = function(){
         const response = xhr.response
-        const listedItems = xhr.response.response
+        const listedItems = response
         var finalTweetStr = ""
         for(var i = 0 ; i < listedItems.length ; i++){
             var tweetObj = listedItems[i]
