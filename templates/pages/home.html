@@ -18,7 +18,7 @@ this is amazing!!!!
         <form action="/create-tweet" id = 'tweet-create-form' class="form" method = 'POST'>
             {% csrf_token %}
             <input type="hidden" value = '/' name = 'next' />
-            <textarea name="content" placeholder = 'Your tweet...' class="form-control"></textarea>
+            <textarea required = 'required' name="content" placeholder = 'Your tweet...' class="form-control"></textarea>
             <button class="btn btn-primary">Tweet</button>
         </form>
     </div>
@@ -45,10 +45,10 @@ function handleTweetCreateFormDidSumbit(event){
     xhr.onload = function(){
         if(xhr.status === 201){
             const newTweetJson = xhr.response
-            console.log(newTweetJson.likes)
             const newTweetElement = formatTweetElement(newTweetJson)
-            console.log(newTweetElement)
-            tweetsConatinerElement.prepend(newTweetElement)
+            const ogHtml = tweetsConatinerElement.innerHTML
+            tweetsConatinerElement.innerHTML = newTweetElement + ogHtml
+            myForm.reset()
         }
     }
     xhr.send(myFormData)
