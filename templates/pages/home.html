@@ -129,13 +129,27 @@ loadTweets(tweetsConatinerElement)
 
 function handleDidLike(tweet_id , currentCount) {
     console.log(tweet_id , currentCount)
-    currentCount++
+    const url = "/api/tweets/action"
+    const method = "POST"
+    const data = JSON.stringify({
+        id : tweet_id,
+        action : "like"
+    })
+    const xhr = new XMLHttpRequest()
+    xhr.open(method,url)
+    xhr.setRequestHeader("Content-Type" , "application/json")
+    xhr.setRequestHeader("HTTP_X_REQUESTED_WITH" , "XMLHttpRequest")
+    xhr.setRequestHeader("X-Requested-With" , "XMLHttpRequest")
+    xhr.onload = function(){
+        console.log(xhr.status , xhr.response)
+    }
+    xhr.send(data)
     return 
 }
 
 function LikeBtn(tweet){
     return "<button class = 'btn btn-primary btn-sm' onclick = handleDidLike(" + 
-    tweet.id + "," + tweet.likes + ")>"+tweet.likes + "Like</button>"
+    tweet.id + "," + tweet.likes + ")>"+tweet.likes + " Likes</button>"
 }
 
 function formatTweetElement(tweet) {
