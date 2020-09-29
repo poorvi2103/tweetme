@@ -7,13 +7,17 @@ this is amazing!!!!
 {% endblock head_title %}
 
 {% block content %}
-<div class="row text-center">
+
+<div id="tweetme"></div>
+
+
+<div class="row text-center d-none">
     <div class="col">
         <h1>Welcome to Tweetme</h1>
     </div>
 </div>
 
-<div class="row mb-3">
+<div class="row mb-3 d-none">
     <div class="col-md-4 mx-auto col-10">
         <form action="/create-tweet" id = 'tweet-create-form' class="form" method = 'POST'>
             {% csrf_token %}
@@ -25,7 +29,8 @@ this is amazing!!!!
     </div>
 </div>
 
-<div class = "row" id = 'tweets'>
+
+<div class = "row d-none" id = 'tweets'>
     Loading...
 </div>
 
