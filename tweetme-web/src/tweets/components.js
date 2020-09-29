@@ -8,6 +8,7 @@ apiTweetList} from './lookup'
 export function TweetComponent(props) {
     const textAreaRef = React.createRef()
     const [newTweets, setNewTweets] = useState([])
+    const canTweet = props.canTweet === "false" ? false : true
     const handleBackendUpdate = (response, status) => {
       // backend api response handler
         let tempNewTweets = [...newTweets]
@@ -27,7 +28,7 @@ export function TweetComponent(props) {
         textAreaRef.current.value = ''
     }
     return <div className={props.className}>
-        <div className='col-12 mb-3'>
+        {canTweet === true && <div className='col-12 mb-3'>
             <form onSubmit={handleSubmit}>
                 <textarea
                     ref={textAreaRef}
@@ -37,7 +38,8 @@ export function TweetComponent(props) {
                 <button type='submit' className='btn btn-primary my-3'>Tweet</button>
             </form>
         </div>
-        <TweetList newTweets={newTweets}/>
+}
+        <TweetList newTweets={newTweets} {...props}/>
     </div>
 }
 
@@ -62,9 +64,9 @@ export function TweetList(props) {
                     alert("There was an error")
                 }
             }
-            apiTweetList(handleTweetListLookup)
+            apiTweetList(props.username,handleTweetListLookup)
         }
-    }, [tweetsInit, tweetsDidSet, setTweetsDidSet])
+    }, [tweetsInit, tweetsDidSet, setTweetsDidSet,props.username])
 
     const handleDidRetweet = (newTweet) => {
         const updateTweetsInit = [...tweetsInit]
