@@ -4,6 +4,7 @@ from django.shortcuts import render , redirect
 from django.http import HttpResponse,Http404,JsonResponse
 from django.utils.http import is_safe_url
 
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import api_view ,authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -26,8 +27,9 @@ def home_view(request , *args , **kwargs):
 @api_view(['POST']) # http method the client == POST
 #@authentication_classes([SessionAuthentication , MyCustomAuth])
 @permission_classes([IsAuthenticated])
+
 def tweet_create_view(request , *args , **kwargs):
-    serializer = TweetCreateSerializer(data = request.POST)
+    serializer = TweetCreateSerializer(data = request.data)
     if serializer.is_valid(raise_exception = True):
         serializer.save(user = request.user)
         return Response(serializer.data,status = 201)
