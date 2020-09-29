@@ -2,6 +2,24 @@ import React , {useEffect,useState} from 'react'
 
 import {loadTweets} from '../lookup'
 
+export function TweetComponent(props){
+  const textAreaRef = React.createRef()
+  const handleSubmit = (event) =>{
+    event.preventDefault()
+    const newVal = textAreaRef.current.value
+    textAreaRef.current.value = ''
+  }
+  return <div className = {props.className}>
+    <div className = 'col-12 mb-3'>
+  <form onSubmit={handleSubmit}>
+    <textarea ref = {textAreaRef} required = {true} className='form-control'></textarea>
+    <button type='submit' className='btn btn-primary my-3'>Tweet</button>
+</form>
+</div>
+<TweetList/>
+   </div>
+}
+
 export function TweetList(props){
   const [tweets,setTweets] = useState([])
   useEffect(() => {
@@ -23,14 +41,21 @@ export function TweetList(props){
 
 export function ActionBtn(props){
   const {tweet,action} = props
+  const [likes,setLikes] = useState(tweet.likes === true ? true : false)
+  const [userLike , setUserLike] = useState(false)
   const className = props.className ? props.className : 'btn btn-primary btn-sm'
   const actionDisplay = action.display ? action.display : 'Action'
-  let likes = tweet.likes
   const handleClick = (event) =>{
       event.preventDefault()
       if(action.type === 'like'){
-          console.log(tweet.likes+1)
-          likes = tweet.likes + 1
+          if(userLike === true){
+              setLikes(likes-1)
+              setUserLike(false)
+          }
+          else{
+              setUserLike(true)
+              setLikes(likes+1)
+          }
       }
   }
   const display = action.type === 'like' ? `${likes} ${actionDisplay}` : actionDisplay
