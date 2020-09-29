@@ -9,19 +9,18 @@ import {TweetComponent} from './tweets';
 const appEl = document.getElementById('root')
 if(appEl){
   ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // <React.StrictMode>
+    <App />,
+  // </React.StrictMode>,
   appEl);
 }
+
+const e = React.createElement
 
 const tweetsEl = document.getElementById('tweetme')
 if(tweetsEl){
    ReactDOM.render(
-  <React.StrictMode>
-    <TweetComponent />
-  </React.StrictMode>,
-  tweetsEl);
+     e(TweetComponent,tweetsEl.dataset),tweetsEl);
 }
 
 // If you want your app to work offline and load faster, you can change
