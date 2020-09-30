@@ -23,7 +23,6 @@ ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 @api_view(['POST']) # http method the client == POST
 #@authentication_classes([SessionAuthentication , MyCustomAuth])
 @permission_classes([IsAuthenticated])
-
 def tweet_create_view(request , *args , **kwargs):
     serializer = TweetCreateSerializer(data = request.data)
     if serializer.is_valid(raise_exception = True):
