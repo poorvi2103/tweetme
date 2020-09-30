@@ -29,9 +29,7 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div class="tweet-container">
-
-    </div>
+    <div id="tweet-container"></div>
     <div class = 'tweetme' id="tweetme" data-username = "Mehul" data-can-tweet = "false"></div>
     <!--
       This HTML file is a template.
@@ -49,8 +47,8 @@
       var match = path.match(idRegex)
       if(match){
         var tweetId = match.groups.tweetid
-        var tweetmeEl = document.getElementById("tweetme")
-        tweetmeEl.className = 'd-none'
+        var tweetme2El = document.getElementById("tweetme")
+        tweetme2El.className = 'd-none'
         var tweetEl = "<div class='tweetme-detail' data-tweet-id=" + tweetId + " data-class-name='col-6 mx-auto'></div>"
         var mainContainer = document.getElementById("tweet-container")
         mainContainer.innerHTML = tweetEl
