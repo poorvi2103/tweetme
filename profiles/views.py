@@ -5,7 +5,7 @@ from .models import Profile
 # Create your views here.
 def profile_detail_view(request , username , *args , **kwargs):
     qs = Profile.objects.filter(user__username = username)
-    if not qs.exits():
+    if not qs.exists():
         raise Http404
     profile_obj = qs.first()
     context = {
